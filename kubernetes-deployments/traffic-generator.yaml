@@ -17,14 +17,10 @@ spec:
     spec:
       containers:
         - name: sleep-container
-          image: polinux/stress  # A simple image for sleeping
+          image: polinux/stress
           command: ["sleep"]
-          args: ["3600"]  # Sleep for 1 hour (3600 seconds)
+          args: ["3600"]
           resources:
             limits:
-              cpu: "250m"  # 250m CPU limit
-              memory: "600M"  # 600MB memory limit
-
-# cat /sys/fs/cgroup/cpu,cpuacct/cpu.stat
-# stress --cpu 1 --vm 1 --vm-bytes 500M --timeout 1200s
-
+              cpu: "250m"
+              memory: "600M"

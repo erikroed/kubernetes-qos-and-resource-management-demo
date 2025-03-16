@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
         - name: busybox
-          image: busybox  # A simple image for sleeping
+          image: busybox
           command: ["sleep"]
-          args: ["3600"]  # Sleep for 1 hour (3600 seconds)
+          args: ["3600"]
