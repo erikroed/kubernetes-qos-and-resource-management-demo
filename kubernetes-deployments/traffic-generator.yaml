@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traffic-generator-app
+  namespace: qos
+  labels:
+    app: traffic-generator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traffic-generator
+  template:
+    metadata:
+      labels:
+        app: traffic-generator
+    spec:
+      containers:
+        - name: sleep-container
+          image: polinux/stress  # A simple image for sleeping
+          command: ["sleep"]
+          args: ["3600"]  # Sleep for 1 hour (3600 seconds)
+          resources:
+            limits:
+              cpu: "250m"  # 250m CPU limit
+              memory: "600M"  # 600MB memory limit
+
+# cat /sys/fs/cgroup/cpu,cpuacct/cpu.stat
+# stress --cpu 1 --vm 1 --vm-bytes 500M --timeout 1200s
+
