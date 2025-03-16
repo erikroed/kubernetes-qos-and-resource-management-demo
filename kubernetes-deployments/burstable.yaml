@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: burstable-app
+  namespace: qos
+  labels:
+    app: burstable
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: burstable
+  template:
+    metadata:
+      labels:
+        app: burstable
+    spec:
+      containers:
+        - name: busybox
+          image: busybox  # A simple image for sleeping
+          command: ["sleep"]
+          args: ["3600"]  # Sleep for 1 hour (3600 seconds)
+          resources:
+            requests:
+              cpu: "100m"  # 50% of a CPU core
+              memory: "100M"  # 100 MiB memory request
+            limits:
+              cpu: "250m"  # 2 CPU cores
+              memory: "600M"  # 1 GiB memory limit
