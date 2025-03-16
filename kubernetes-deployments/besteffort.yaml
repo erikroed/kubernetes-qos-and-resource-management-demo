@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: best-effort-app
+  namespace: qos
+  labels:
+    app: best-effort
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: best-effort
+  template:
+    metadata:
+      labels:
+        app: best-effort
+    spec:
+      containers:
+        - name: busybox
+          image: busybox  # A simple image for sleeping
+          command: ["sleep"]
+          args: ["3600"]  # Sleep for 1 hour (3600 seconds)
