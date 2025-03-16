@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guaranteed-app
+  namespace: qos
+  labels:
+    app: guaranteed
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: guaranteed
+  template:
+    metadata:
+      labels:
+        app: guaranteed
+    spec:
+      containers:
+        - name: busybox
+          image: busybox  # A simple image for sleeping
+          command: ["sleep"]
+          args: ["3600"]  # Sleep for 1 hour (3600 seconds)
+          resources:
+            requests:
+              cpu: "250m"  # 2 CPU cores
+              memory: "500M"  # 1 GiB memory request
+            limits:
+              cpu: "250m"  # 2 CPU cores
+              memory: "600M"  # 1 GiB memory limit
