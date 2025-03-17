@@ -68,7 +68,13 @@ To set up the environment and deploy the applications, follow these steps:
    - Installs **Fairwinds Goldilocks** for resource recommendation.
    - Deploys the QoS pods and the traffic generator application.
 
-   To run the script, execute the following command:
+   To run the script, ensure the setup.sh is executable: 
+
+   ```bash
+   chmod +x setup.sh
+   ```
+
+   Now you should be able to execute the following command:
 
    ```bash
    ./setup.sh
