@@ -112,16 +112,22 @@ open_traffic_generator_terminal() {
 
     log "Found Traffic Generator pod: $pod_name. Opening terminal to SSH into it."
 
-    gnome-terminal -- bash -c "kubectl exec -n qos -it $pod_name -- bash; exec bash"
-    
-    log "In the terminal, you can now run the following command to start the stress test:
-stress --cpu 1 --vm 1 --vm-bytes 500M --timeout 1200s"
+    if command -v gnome-terminal &> /dev/null; then
+        gnome-terminal -- bash -c "kubectl exec -n qos -it $pod_name -- bash; exec bash"
+        else
+            log "Open a new terminal and run 'kubectl exec -n qos -it $pod_name -- bash'"
+    fi
+
+    log "In the terminal, you can now run the following command to start the stress test: stress --cpu 1 --vm 1 --vm-bytes 500M --timeout 1200s"
 }
 
 open_goldilocks_dashboard() {
-    log "Opening Goldilocks dashboard in the browser at http://localhost:8080"
-    
-    xdg-open http://localhost:8080
+    if command -v xdg-open &> /dev/null; then
+        log "Opening Goldilocks dashboard in the browser at http://localhost:8080"
+        xdg-open http://localhost:8080
+    else
+        log "Open Goldilocks dashbord in your browser at http://localhost:8080"
+    fi
 }
 
 main() {
